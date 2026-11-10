@@ -1,0 +1,18 @@
+name: Windows build
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - shell: pwsh
+        run: ./scripts/build.ps1 -Publish
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MineOrbit-win-x64
+          path: |
+            artifacts/MineOrbit-0.4.0-release.zip
+            artifacts/test-results/*.trx

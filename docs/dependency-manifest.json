@@ -1,0 +1,135 @@
+[
+  {
+    "Package": "CmlLib.Core",
+    "Version": "4.1.0",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://github.com/CmlLib/CmlLib.Core"
+  },
+  {
+    "Package": "CmlLib.Core.Auth.Microsoft",
+    "Version": "3.4.0",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://github.com/CmlLib/CmlLib.Core.Auth.Microsoft"
+  },
+  {
+    "Package": "CmlLib.Core.Commons",
+    "Version": "4.0.0",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://github.com/CmlLib/CmlLib.Core.Commons"
+  },
+  {
+    "Package": "CmlLib.Core.Installer.Forge",
+    "Version": "2.0.0",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://github.com/CmlLib/CmlLib.Core.Installer.Forge"
+  },
+  {
+    "Package": "HtmlAgilityPack",
+    "Version": "1.11.48",
+    "License": null,
+    "LicenseUrl": "https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE",
+    "Project": "http://html-agility-pack.net/"
+  },
+  {
+    "Package": "LZMA-SDK",
+    "Version": "19.0.0",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://github.com/monemihir/LZMA-SDK"
+  },
+  {
+    "Package": "Microsoft.Extensions.DependencyInjection",
+    "Version": "10.0.14",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://dot.net/"
+  },
+  {
+    "Package": "Microsoft.Extensions.DependencyInjection.Abstractions",
+    "Version": "10.0.14",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://dot.net/"
+  },
+  {
+    "Package": "Microsoft.Extensions.Logging.Abstractions",
+    "Version": "8.0.1",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://dot.net/"
+  },
+  {
+    "Package": "Microsoft.Identity.Client",
+    "Version": "4.92.0",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://go.microsoft.com/fwlink/?linkid=844761"
+  },
+  {
+    "Package": "Microsoft.Identity.Client.Extensions.Msal",
+    "Version": "4.61.3",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://go.microsoft.com/fwlink/?linkid=844761"
+  },
+  {
+    "Package": "Microsoft.IdentityModel.Abstractions",
+    "Version": "8.14.0",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet"
+  },
+  {
+    "Package": "Microsoft.Web.WebView2",
+    "Version": "1.0.1823.32",
+    "License": "LICENSE.txt",
+    "LicenseUrl": "https://aka.ms/deprecateLicenseUrl",
+    "Project": "https://aka.ms/webview"
+  },
+  {
+    "Package": "Serilog",
+    "Version": "4.4.0",
+    "License": "Apache-2.0",
+    "LicenseUrl": "https://licenses.nuget.org/Apache-2.0",
+    "Project": "https://serilog.net/"
+  },
+  {
+    "Package": "Serilog.Sinks.File",
+    "Version": "7.0.0",
+    "License": "Apache-2.0",
+    "LicenseUrl": "https://licenses.nuget.org/Apache-2.0",
+    "Project": "https://github.com/serilog/serilog-sinks-file"
+  },
+  {
+    "Package": "SharpZipLib",
+    "Version": "1.4.2",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://github.com/icsharpcode/SharpZipLib"
+  },
+  {
+    "Package": "XboxAuthNet",
+    "Version": "3.1.0",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://github.com/AlphaBs/XboxAuthNet"
+  },
+  {
+    "Package": "XboxAuthNet.Game",
+    "Version": "1.5.0",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://github.com/CmlLib/CmlLib.Core.Auth.Microsoft"
+  },
+  {
+    "Package": "XboxAuthNet.Game.Msal",
+    "Version": "0.2.0",
+    "License": "MIT",
+    "LicenseUrl": "https://licenses.nuget.org/MIT",
+    "Project": "https://github.com/AlphaBs/XboxAuthNet"
+  }
+]

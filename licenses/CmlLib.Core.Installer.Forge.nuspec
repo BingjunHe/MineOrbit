@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>CmlLib.Core.Installer.Forge</id>
+    <version>2.0.0</version>
+    <authors>CmlLib</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>icon.png</icon>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/CmlLib/CmlLib.Core.Installer.Forge</projectUrl>
+    <description>Minecraft Forge Installer</description>
+    <copyright>Copyright (c) 2023 CmlLib</copyright>
+    <tags>minecraft forge installer</tags>
+    <repository type="git" url="https://github.com/CmlLib/CmlLib.Core.Installer.Forge" commit="1a3954a11c2215ba0d08c96d3f7aa43d13835f06" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="CmlLib.Core" version="4.0.3" exclude="Build,Analyzers" />
+        <dependency id="HtmlAgilityPack" version="1.11.48" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

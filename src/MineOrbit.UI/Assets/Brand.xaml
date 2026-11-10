@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DrawingImage x:Key="MineOrbitMark">
+    <DrawingImage.Drawing><DrawingGroup>
+      <GeometryDrawing Brush="#10251F" Geometry="M 52,4 L 204,4 Q 252,4 252,52 L 252,204 Q 252,252 204,252 L 52,252 Q 4,252 4,204 L 4,52 Q 4,4 52,4 Z"/>
+      <GeometryDrawing Geometry="M 27,169 C -2,126 190,39 229,83 C 263,122 69,225 27,169">
+        <GeometryDrawing.Pen><Pen Brush="#477B66" Thickness="8" StartLineCap="Round" EndLineCap="Round"/></GeometryDrawing.Pen>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#75EAA6" Geometry="M 128,49 L 194,87 L 128,126 L 62,87 Z"/>
+      <GeometryDrawing Brush="#359C65" Geometry="M 62,87 L 128,126 L 128,204 L 62,166 Z"/>
+      <GeometryDrawing Brush="#1F684C" Geometry="M 128,126 L 194,87 L 194,166 L 128,204 Z"/>
+      <GeometryDrawing Brush="#A9F8CB" Geometry="M 128,49 L 194,87 L 183,93 L 128,61 L 73,93 L 62,87 Z"/>
+      <GeometryDrawing Geometry="M 229,83 C 263,122 69,225 27,169">
+        <GeometryDrawing.Pen><Pen Brush="#C1F7DC" Thickness="9" StartLineCap="Round" EndLineCap="Round"/></GeometryDrawing.Pen>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#F6CD72" Geometry="M 218,65 A 12,12 0 1 1 218,89 A 12,12 0 1 1 218,65 Z"/>
+    </DrawingGroup></DrawingImage.Drawing>
+  </DrawingImage>
+</ResourceDictionary>

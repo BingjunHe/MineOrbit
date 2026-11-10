@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+<title>MineOrbit — 方块与轨道</title>
+<path fill="#10251f" d="M52 4H204Q252 4 252 52V204Q252 252 204 252H52Q4 252 4 204V52Q4 4 52 4Z"/>
+<path d="M27 169C-2 126 190 39 229 83C263 122 69 225 27 169" fill="none" stroke="#477b66" stroke-width="8" stroke-linecap="round"/>
+<path fill="#75eaa6" d="M128 49L194 87L128 126L62 87Z"/><path fill="#359c65" d="M62 87L128 126V204L62 166Z"/><path fill="#1f684c" d="M128 126L194 87V166L128 204Z"/>
+<path fill="#a9f8cb" d="M128 49L194 87L183 93L128 61L73 93L62 87Z"/>
+<path d="M229 83C263 122 69 225 27 169" fill="none" stroke="#c1f7dc" stroke-width="9" stroke-linecap="round"/>
+<circle fill="#f6cd72" cx="218" cy="77" r="12"/>
+</svg>

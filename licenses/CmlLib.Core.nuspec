@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>CmlLib.Core</id>
+    <version>4.1.0</version>
+    <authors>AlphaBs</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>icon.png</icon>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/CmlLib/CmlLib.Core</projectUrl>
+    <description>Minecraft Launcher Library for .NET</description>
+    <copyright>Copyright (c) 2023 AlphaBs</copyright>
+    <tags>Minecraft Launcher forge optifine mojang Crossplatform C#</tags>
+    <repository type="git" url="https://github.com/CmlLib/CmlLib.Core" commit="ffa2e908a9aa545c13175ec7b700472220e6d280" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="CmlLib.Core.Commons" version="4.0.0" exclude="Build,Analyzers" />
+        <dependency id="LZMA-SDK" version="19.0.0" exclude="Build,Analyzers" />
+        <dependency id="SharpZipLib" version="1.4.2" exclude="Build,Analyzers" />
+        <dependency id="System.Text.Json" version="8.0.5" exclude="Build,Analyzers" />
+        <dependency id="System.Threading.Tasks.Dataflow" version="8.0.1" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="CmlLib.Core.Commons" version="4.0.0" exclude="Build,Analyzers" />
+        <dependency id="LZMA-SDK" version="19.0.0" exclude="Build,Analyzers" />
+        <dependency id="SharpZipLib" version="1.4.2" exclude="Build,Analyzers" />
+        <dependency id="System.Text.Json" version="8.0.5" exclude="Build,Analyzers" />
+        <dependency id="System.Threading.Tasks.Dataflow" version="8.0.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

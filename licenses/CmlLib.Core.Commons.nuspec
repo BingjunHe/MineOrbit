@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>CmlLib.Core.Commons</id>
+    <version>4.0.0</version>
+    <authors>AlphaBs</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>icon.png</icon>
+    <projectUrl>https://github.com/CmlLib/CmlLib.Core.Commons</projectUrl>
+    <description>Package Description</description>
+    <copyright>Copyright (c) 2024 AlphaBs</copyright>
+    <repository type="git" url="https://github.com/CmlLib/CmlLib.Core.Commons" commit="aa96916cde628dcd74d4e82b5bfb20589398af1e" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="System.Text.Json" version="8.0.3" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

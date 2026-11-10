@@ -1,0 +1,6 @@
+* text=auto
+*.png -text
+*.ico -text
+
+# Preserve upstream license text verbatim.
+licenses/** -whitespace

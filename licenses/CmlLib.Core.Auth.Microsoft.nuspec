@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>CmlLib.Core.Auth.Microsoft</id>
+    <version>3.4.0</version>
+    <authors>ksi123456ab</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>icon.png</icon>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/CmlLib/CmlLib.Core.Auth.Microsoft</projectUrl>
+    <description>Minecraft login with Microsoft Xbox Live account</description>
+    <copyright>Copyright (c) 2023 AlphaBs</copyright>
+    <tags>CmlLib Minecraft Login Auth Authentication Microsoft Xbox Live XboxLive</tags>
+    <repository type="git" url="https://github.com/CmlLib/CmlLib.Core.Auth.Microsoft" commit="32baa8d0bd900ca3731959a2a51128eda2260ff8" />
+    <dependencies>
+      <group targetFramework="net10.0">
+        <dependency id="XboxAuthNet.Game" version="1.5.0" exclude="Build,Analyzers" />
+        <dependency id="CmlLib.Core.Commons" version="4.0.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="XboxAuthNet.Game" version="1.5.0" exclude="Build,Analyzers" />
+        <dependency id="CmlLib.Core.Commons" version="4.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

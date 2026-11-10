@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>XboxAuthNet.Game.Msal</id>
+    <version>0.2.0</version>
+    <authors>ksi123456ab</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>icon.png</icon>
+    <projectUrl>https://github.com/AlphaBs/XboxAuthNet</projectUrl>
+    <description>XboxAuthNet.Game extension for MSAL.NET</description>
+    <copyright>Copyright (c) 2023 AlphaBs</copyright>
+    <tags>login authentication msal microsoft xbox game</tags>
+    <repository type="git" url="https://github.com/AlphaBs/XboxAuthNet" commit="9b4744989143394ef73db5c51b941b9c221293a5" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="XboxAuthNet.Game" version="1.4.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Identity.Client" version="4.61.3" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Identity.Client.Extensions.Msal" version="4.61.3" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
