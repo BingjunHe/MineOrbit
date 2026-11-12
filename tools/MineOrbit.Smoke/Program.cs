@@ -2,8 +2,46 @@ using MineOrbit.Core;
 using MineOrbit.Infrastructure;
 using System.IO.Compression;
 using System.Text.Json;
+using CmlLib.Core;
+using CmlLib.Core.FileExtractors;
+using CmlLib.Core.VersionLoader;
 
 var root = Path.GetFullPath(args.ElementAtOrDefault(1) ?? Path.Combine("artifacts", "smoke-data"));
+if (args.Contains("--verify-folder"))
+{
+    var id = args.ElementAtOrDefault(2) ?? (await PackFolderExportService.ReadManifest(root)).LaunchVersion;
+    await VerifyWithoutDownloads(root, id, default);
+    Console.WriteLine("ALL REQUIRED GAME FILES VERIFIED WITHOUT NETWORK: " + id); return;
+}
+if (args.Contains("--export-folder"))
+{
+    var cacheRoot = Path.Combine(root, "pack-tests");
+    var archive = Directory.EnumerateFiles(cacheRoot, "*.mrpack").OrderByDescending(File.GetLastWriteTimeUtc).FirstOrDefault()
+        ?? throw new InvalidOperationException("Run --pack first to create an isolated MRPACK fixture.");
+    using var exportHttp = new HttpClient(new HttpClientHandler { AllowAutoRedirect = false }) { Timeout = TimeSpan.FromMinutes(2) };
+    var exportSettings = new LauncherSettingsAccessor(new() { DataRoot = cacheRoot });
+    var gameInstaller = new MinecraftInstallationService(new(exportHttp), new(), exportSettings);
+    var packInstaller = new PackInstallationService(new(), gameInstaller, new(exportHttp, exportSettings), exportHttp, exportSettings);
+    var destination = Path.Combine(root, "folder-exports", "fabric-" + Guid.NewGuid().ToString("N"));
+    var exportProgress = new Progress<WorkProgress>(p => { if (p.Fraction == 1 || p.Message.Contains("正在", StringComparison.Ordinal)) Console.WriteLine(p.Message); });
+    using var exportTimeout = new CancellationTokenSource(TimeSpan.FromMinutes(15));
+    var exported = await new PackFolderExportService(packInstaller, exportSettings).Export(archive, new("MineOrbit portable test", null, LoaderKind.Vanilla, null), destination, exportProgress, exportTimeout.Token);
+    var exportedVersion = await new CmlLib.Core.MinecraftLauncher(destination).GetVersionAsync(exported.Manifest.LaunchVersion, exportTimeout.Token);
+    await VerifyWithoutDownloads(destination, exported.Manifest.LaunchVersion, exportTimeout.Token);
+    Console.WriteLine("STANDALONE VERSION RESOLVED: " + exported.Manifest.LaunchVersion);
+    Console.WriteLine("PORTABLE FOLDER: " + destination);
+    if (File.ReadAllText(Path.Combine(destination, "config", "mineorbit-test.txt")) != "client") throw new Exception("Client overrides were not exported");
+    if (!Directory.EnumerateFiles(Path.Combine(destination, "mods"), "*.jar").Any()) throw new Exception("No mods exported");
+    var officialTest = Path.Combine(root, "folder-exports", "official-test-" + Guid.NewGuid().ToString("N"));
+    await JsonStore.Write(Path.Combine(officialTest, "launcher_profiles.json"), new { profiles = new Dictionary<string, object> { ["existing"] = new { name = "Preserved fixture", lastVersionId = "1.20.1" } } });
+    var registration = await new OfficialLauncherRegistrationService(() => false).Register(destination, officialTest, exportProgress, exportTimeout.Token);
+    var registeredVersion = await new CmlLib.Core.MinecraftLauncher(officialTest).GetVersionAsync(registration.VersionId, exportTimeout.Token);
+    await VerifyWithoutDownloads(officialTest, registration.VersionId, exportTimeout.Token);
+    Console.WriteLine("OFFICIAL PROFILE CHAIN RESOLVED: " + registration.VersionId);
+    Console.WriteLine("OFFICIAL TEST ROOT: " + officialTest);
+    Console.WriteLine("REAL MINECRAFT / FABRIC / MODS / ASSETS / LIBRARIES EXPORT AND ISOLATED PROFILE REGISTRATION VERIFIED. No user launcher configuration or account was modified; no game launch was attempted.");
+    return;
+}
 if (args.Contains("--login-check") || args.Contains("--launch-check"))
 {
     var accessor = new LauncherSettingsAccessor(new() { DataRoot = root });
@@ -151,3 +189,20 @@ await new MinecraftInstallationService(loaders, new JavaRuntimeService(), settin
 Console.WriteLine("INSTALL VERIFIED: " + instance.LaunchVersion);
 Console.WriteLine("Instance metadata exists: " + File.Exists(Path.Combine(instance.Directory, "instance.json")));
 Console.WriteLine("This does not authenticate or launch Minecraft.");
+
+static async Task VerifyWithoutDownloads(string directory, string version, CancellationToken ct)
+{
+    using var noNetwork = new HttpClient(new RejectExportNetwork());
+    var path = new MinecraftPath(directory);
+    var parameters = MinecraftLauncherParameters.CreateDefault(path, noNetwork);
+    parameters.VersionLoader = new LocalJsonVersionLoader(path);
+    var extractors = DefaultFileExtractors.CreateDefault(noNetwork, parameters.RulesEvaluator!, parameters.JavaPathResolver!);
+    extractors.Java = null; // Exported Java is supplied explicitly in the launcher profile.
+    parameters.FileExtractors = extractors.ToExtractorCollection();
+    await new MinecraftLauncher(parameters).InstallAsync(version, ct);
+}
+sealed class RejectExportNetwork : HttpMessageHandler
+{
+    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken ct)
+        => throw new InvalidOperationException("Export is incomplete; a download was requested: " + request.RequestUri?.Host + request.RequestUri?.AbsolutePath);
+}

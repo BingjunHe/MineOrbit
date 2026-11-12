@@ -1,4 +1,4 @@
-param([switch]$Publish, [string]$PublishDirectory = "artifacts/MineOrbit-0.4.0-release")
+param([switch]$Publish, [string]$PublishDirectory = "artifacts/MineOrbit-0.5.0-release")
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $projectRoot
@@ -11,7 +11,7 @@ if (Test-Path -LiteralPath $localDotnet) { $env:DOTNET_ROOT = Split-Path -Parent
 if ($LASTEXITCODE) { throw '依赖还原失败' }
 & $dotnetExe build MineOrbit.sln --no-restore -c Release -m:1
 if ($LASTEXITCODE) { throw '编译失败' }
-& $dotnetExe test tests/MineOrbit.Tests --no-build --no-restore -c Release --logger 'trx;LogFileName=phase4.trx' --results-directory artifacts/test-results
+& $dotnetExe test tests/MineOrbit.Tests --no-build --no-restore -c Release --logger 'trx;LogFileName=phase5.trx' --results-directory artifacts/test-results
 if ($LASTEXITCODE) { throw '测试失败' }
 if ($Publish) {
     & $dotnetExe publish src/MineOrbit.UI -c Release -r win-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=false --packages .tools/packages -o $PublishDirectory

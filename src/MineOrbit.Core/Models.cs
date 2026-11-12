@@ -6,7 +6,7 @@ public enum MicrosoftLoginMode { SystemBrowser, DeviceCode }
 public enum ModDownloadSource { Automatic, Modrinth, CurseForge }
 public static class LauncherIdentity
 {
-    public const string Version = "0.4.0";
+    public const string Version = "0.5.0";
     public const string MicrosoftClientId = "9be6cf9b-cacb-4201-ab57-dc3847b61587";
 }
 public record IsolationChoice(IsolationMode Mode, string Label) { public override string ToString() => Label; }
@@ -41,6 +41,8 @@ public sealed class LauncherSettings
     public string AssetsPath { get; set; } = "";
     public string RuntimePath { get; set; } = "";
     public string DownloadCachePath { get; set; } = "";
+    public string PackExportDirectory { get; set; } = "";
+    public string OfficialLauncherDirectory { get; set; } = "";
     public Guid? LastSelectedInstanceId { get; set; }
     public int LastPage { get; set; }
     public double LauncherWindowWidth { get; set; } = 1180;
@@ -53,8 +55,8 @@ public sealed class LauncherSettings
             throw new ArgumentException("内存范围无效：最小值至少 512 MB，且不能大于最大值。");
         if (Width < 320 || Height < 240) throw new ArgumentException("游戏窗口尺寸过小。");
         if (DownloadConcurrency is < 1 or > 16) throw new ArgumentException("下载并发范围为 1–16。");
-        foreach (var path in new[] { LibrariesPath, AssetsPath, RuntimePath, DownloadCachePath })
-            if (path.Length > 0 && !Path.IsPathFullyQualified(path)) throw new ArgumentException("自定义缓存目录必须为绝对路径。");
+        foreach (var path in new[] { LibrariesPath, AssetsPath, RuntimePath, DownloadCachePath, PackExportDirectory, OfficialLauncherDirectory })
+            if (path.Length > 0 && !Path.IsPathFullyQualified(path)) throw new ArgumentException("自定义目录必须为绝对路径。");
         if (JavaPath.Length > 0 && !File.Exists(JavaPath)) throw new ArgumentException("指定的 Java 文件不存在。");
     }
 }

@@ -33,12 +33,14 @@ public sealed partial class MainViewModel : INotifyPropertyChanged
     private string? pendingKey;
     public MainViewModel(SettingsService store, LauncherSettingsAccessor settings, MicrosoftAuthenticationService auth, MinecraftVersionService versions,
         ModLoaderInstallationService loaders, MinecraftInstallationService install, MinecraftLaunchService launch, ModpackImportService packs,
-        ModCatalogService modrinth, ModDependencyResolver resolver, ModManagementService mods, GameDirectoryService directories, PackInstallationService packInstaller, BackupService backups)
+        ModCatalogService modrinth, ModDependencyResolver resolver, ModManagementService mods, GameDirectoryService directories, PackInstallationService packInstaller, BackupService backups,
+        PackFolderExportService packExporter, OfficialLauncherRegistrationService officialLauncher)
     {
         this.store = store; this.settings = settings; this.auth = auth; this.versions = versions; this.loaders = loaders; this.install = install; this.launch = launch; this.packs = packs;
         manager = new(Settings.DataRoot);
         SetupLogin();
         SetupFeatures(modrinth, resolver, mods, directories, packInstaller, backups);
+        SetupPackExport(packExporter, officialLauncher);
         LoginCommand = Command(async ct => { await ApplySettingsForOperation(ct); if (!EnsureLoginConfiguration()) return; await auth.Login(true, ct); Notify(nameof(Account)); SetStatus("账号已通过 Minecraft Java 认证，可以启动游戏。"); }, authError: true);
         LogoutCommand = Command(_ => { auth.Logout(); Notify(nameof(Account)); SetStatus("已清除本地账号缓存。"); return Task.CompletedTask; });
         RefreshVersionsCommand = Command(async ct => { allVersions = (await versions.Get(ct)).ToList(); FilterVersions(); SetStatus($"已获取 {allVersions.Count} 个 Minecraft 版本。"); });

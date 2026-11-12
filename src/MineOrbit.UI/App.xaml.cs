@@ -23,6 +23,7 @@ public partial class App : Application
                 .AddSingleton<ModLoaderInstallationService>().AddSingleton<JavaRuntimeService>()
                 .AddSingleton<MinecraftInstallationService>().AddSingleton<MinecraftLaunchService>()
                 .AddSingleton<ModpackImportService>().AddSingleton<PackInstallationService>()
+                .AddSingleton<PackFolderExportService>().AddSingleton<OfficialLauncherRegistrationService>()
                 .AddSingleton<GameDirectoryService>().AddSingleton<BackupService>().AddSingleton<DownloadManager>()
                 .AddSingleton<ModrinthService>().AddSingleton<CurseForgeService>().AddSingleton<ModCatalogService>().AddSingleton<IModCatalog>(p => p.GetRequiredService<ModCatalogService>())
                 .AddSingleton<ModDependencyResolver>().AddSingleton<ModManagementService>().AddSingleton<MainViewModel>();

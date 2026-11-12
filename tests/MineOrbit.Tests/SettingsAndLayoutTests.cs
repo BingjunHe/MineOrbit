@@ -130,6 +130,13 @@ public sealed class SettingsAndLayoutTests
                     await Layout();
                     Assert.True(scroll.VerticalOffset < previous, "Wheel at list boundary must scroll the enclosing page");
                 }
+                if (i == 4)
+                {
+                    ((TextBox)window.FindName("PackExportDirectoryInput")).Text = Path.Combine(rootPath, "export-output");
+                    ((TextBox)window.FindName("OfficialLauncherDirectoryInput")).Text = Path.Combine(rootPath, "official-test");
+                    Assert.Equal(Path.Combine(rootPath, "export-output"), vm.Settings.PackExportDirectory);
+                    Assert.Equal(Path.Combine(rootPath, "official-test"), vm.Settings.OfficialLauncherDirectory);
+                }
                 if (i == 6)
                 {
                     Assert.Equal(Visibility.Visible, save.Visibility);
@@ -170,6 +177,8 @@ public sealed class SettingsAndLayoutTests
             Assert.Equal(IsolationMode.ByVersion, loaded.DefaultIsolation);
             Assert.Equal(selected.Id, loaded.LastSelectedInstanceId);
             Assert.Equal(6, loaded.LastPage);
+            Assert.Equal(Path.Combine(rootPath, "export-output"), loaded.PackExportDirectory);
+            Assert.Equal(Path.Combine(rootPath, "official-test"), loaded.OfficialLauncherDirectory);
             Input("MaximumRamMb").Text = "not-a-number";
             Assert.True(window.HasInvalidInput);
             Input("MaximumRamMb").Text = "6144";
@@ -197,6 +206,13 @@ public sealed class SettingsAndLayoutTests
             var home = new RenderTargetBitmap((int)Math.Ceiling(root.ActualWidth + 40), (int)Math.Ceiling(root.ActualHeight + 40), 96, 96, PixelFormats.Pbgra32); home.Render(root);
             var homePng = new PngBitmapEncoder(); homePng.Frames.Add(BitmapFrame.Create(home));
             using (var stream = File.Create(Path.Combine(output, "home-0.4.png"))) homePng.Save(stream);
+            window.Height = 900; vm.Page = 4;
+            await Dispatcher.Yield(DispatcherPriority.ContextIdle);
+            ((ScrollViewer)pages.SelectedContent).ScrollToEnd();
+            await Dispatcher.Yield(DispatcherPriority.ContextIdle); root.UpdateLayout();
+            var exportView = new RenderTargetBitmap((int)Math.Ceiling(root.ActualWidth + 40), (int)Math.Ceiling(root.ActualHeight + 40), 96, 96, PixelFormats.Pbgra32); exportView.Render(root);
+            var exportPng = new PngBitmapEncoder(); exportPng.Frames.Add(BitmapFrame.Create(exportView));
+            using (var stream = File.Create(Path.Combine(output, "export-folder-0.5.png"))) exportPng.Save(stream);
             window.Width = 760; window.Height = 480; vm.Page = 6;
             await Dispatcher.Yield(DispatcherPriority.ContextIdle);
             var closingId = Guid.NewGuid().ToString();
@@ -228,6 +244,7 @@ public sealed class SettingsAndLayoutTests
             .AddSingleton<ModLoaderInstallationService>().AddSingleton<JavaRuntimeService>()
             .AddSingleton<MinecraftInstallationService>().AddSingleton<MinecraftLaunchService>()
             .AddSingleton<ModpackImportService>().AddSingleton<PackInstallationService>()
+            .AddSingleton<PackFolderExportService>().AddSingleton<OfficialLauncherRegistrationService>()
             .AddSingleton<GameDirectoryService>().AddSingleton<BackupService>().AddSingleton<DownloadManager>()
             .AddSingleton<ModrinthService>().AddSingleton<CurseForgeService>().AddSingleton<ModCatalogService>().AddSingleton<IModCatalog>(p => p.GetRequiredService<ModCatalogService>())
             .AddSingleton<ModDependencyResolver>().AddSingleton<ModManagementService>().AddSingleton<MainViewModel>();

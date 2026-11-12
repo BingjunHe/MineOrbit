@@ -1,16 +1,16 @@
-# MineOrbit 0.4.0
+# MineOrbit 0.5.0
 
 MineOrbit is a personal Windows desktop launcher for Minecraft: Java Edition, built with C# / .NET 10 and WPF. It supports isolated game versions, mod management, and modpack import. Gameplay requires Microsoft authentication and verification of Java Edition ownership; offline authentication and license bypasses are not provided. Tokens are stored locally with Windows DPAPI encryption.
 
-**Development status:** Microsoft sign-in has been tested, but Minecraft Services currently returns HTTP 403 for the application's Client ID. Minecraft API application approval and a successful game main-menu test are still pending. See [login setup](docs/MICROSOFT-LOGIN.md) and [validation report](docs/TEST-REPORT.md).
+**Authentication status:** The last MineOrbit authentication check on 2026-11-10 reached Minecraft Services and returned HTTP 403. Approval status has not been rechecked in this export-focused update. Version 0.5.0 prepares independent game folders and registers them with the official launcher, which performs its own normal account authentication. See [login setup](docs/MICROSOFT-LOGIN.md) and [validation report](docs/TEST-REPORT.md).
 
-个人使用的 Minecraft Java Edition Windows 10/11 x64 启动器。C# / .NET 10 LTS / WPF / MVVM。可编译源码与自包含 Windows 发布包均在本项目内。
+个人使用的 Minecraft Java Edition Windows 10/11 x64 启动器。C# / .NET 10 LTS / WPF / MVVM。提供可编译源码，可构建为自包含 Windows 发布包。
 
 GitHub 源码仓库不包含游戏数据、账号缓存、下载依赖或发布压缩包。Windows 上可运行 `./scripts/build.ps1 -Publish` 构建并测试；仓库的 Windows build 工作流也会生成可下载的构建产物。
 
 ## 运行
 
-解压 `artifacts/MineOrbit-0.4.0-release.zip`，运行其中的 `MineOrbit.exe`；保留全部文件，不要只复制 EXE。已包含 .NET 桌面运行时。旧版 MineDeck 的设置在新配置不存在时可以读取，旧账号缓存不会自动迁移，需要重新登录。新配置位于 `%LOCALAPPDATA%\MineOrbit`。
+解压 `artifacts/MineOrbit-0.5.0-release.zip`，运行其中的 `MineOrbit.exe`；保留全部文件，不要只复制 EXE。已包含 .NET 桌面运行时。旧版 MineDeck 的设置在新配置不存在时可以读取，旧账号缓存不会自动迁移，需要重新登录。新配置位于 `%LOCALAPPDATA%\MineOrbit`。
 
 ## 正版登录与启动
 
@@ -22,7 +22,7 @@ GitHub 源码仓库不包含游戏数据、账号缓存、下载依赖或发布�
 
 账号通过 Minecraft Java 认证后才标为“已认证”。没有正版权限、有效 Profile、API 授权或 Client ID 时会明确失败，不会切换为离线/伪造会话。
 
-**本轮已使用提供的 Client ID 完成 Microsoft 授权，但 Minecraft 服务返回 HTTP 403，尚未完成最终游戏会话及主菜单验收。** 应先确认应用的 Minecraft API 准入和账号限制；不能把微软网页登录成功当作 Minecraft 登录成功。用户需要在官方页面本人授权，不要在聊天中发送密码、Token 或 Client Secret。
+**2026-11-10 的 MineOrbit 认证验证在 Microsoft 授权后收到 Minecraft HTTP 403，尚未完成 MineOrbit 游戏主菜单验收；0.5.0 未重新检查审批状态。** 应先确认应用的 Minecraft API 准入和账号限制；不能把微软网页登录成功当作 Minecraft 登录成功。用户需要在官方页面本人授权，不要在聊天中发送密码、Token 或 Client Secret。
 
 参考：[CmlLib MSAL 登录文档](https://cmllib.github.io/CmlLib.Core-wiki/en/auth.microsoft/xboxauthnet.game.msal/oauth/)、[应用 ID 与 Minecraft API 准入](https://cmllib.github.io/CmlLib.Core-wiki/en/auth.microsoft/xboxauthnet.game.msal/clientid/)、[Microsoft 桌面应用注册](https://learn.microsoft.com/entra/identity-platform/how-to-add-redirect-uri)。
 
@@ -62,6 +62,14 @@ GitHub 源码仓库不包含游戏数据、账号缓存、下载依赖或发布�
 - **CurseForge Export**：通过授权 API Key 获取文件；Key 在设置中输入后以 DPAPI 加密保存。API 不提供下载 URL、作者限制第三方下载或缺少授权时，列明项目/文件 ID 并终止，不绕过限制，不把缺文件游戏版本标为完成。
 
 导入检查路径穿越、绝对路径、Windows 设备名、重复路径、符号链接、文件数、压缩比、总大小和单文件大小。下载清单不得覆盖启动器元数据或运行库；解压过程再次限制实际字节数。安装在全新 GUID 目录中进行，完整成功之后才发布游戏版本配置；失败清理本次目录，不修改已有游戏版本。
+
+## 导出为其他启动器可用的文件夹
+
+在“整合包”页选择 ZIP / MRPACK、检查版本信息，选择新的空文件夹，点击“将整合包导出到文件夹”。会安装并复制本体、Loader、所需 Libraries / Assets、Mods、配置及可用的 bundled Java。导出不需要 MineOrbit 登录。
+
+使用官方启动器时，先关闭官方启动器，在此页面点击“添加到官方启动器”。程序会备份原配置并生成独立版本和启动项，游戏运行目录指向导出文件夹。重新打开官方启动器，在 Java 版安装配置中选择整合包并使用正版账号启动。
+
+PCL / HMCL 需添加该 Minecraft 根目录，并将实际游戏运行目录设为此文件夹。详细步骤和验证边界见 [文件夹导出说明](docs/PACK-FOLDER-EXPORT.md)。
 
 ## 其他完善
 
@@ -106,7 +114,7 @@ GitHub 源码仓库不包含游戏数据、账号缓存、下载依赖或发布�
 dotnet restore MineOrbit.sln
 dotnet build MineOrbit.sln -c Release -m:1
 dotnet test tests/MineOrbit.Tests -c Release
-dotnet publish src/MineOrbit.UI -c Release -r win-x64 --self-contained true -p:PublishTrimmed=false -o artifacts/MineOrbit-0.4.0-release
+dotnet publish src/MineOrbit.UI -c Release -r win-x64 --self-contained true -p:PublishTrimmed=false -o artifacts/MineOrbit-0.5.0-release
 ```
 
 联网验证工具（会真实下载文件，不登录账号、不启动游戏）：
@@ -133,3 +141,5 @@ dotnet run --project tools/MineOrbit.Smoke -c Release -- --neo
 0.3.1 修复：小窗口侧栏紧凑布局、内容滚动与列表边缘滚轮传递；底部固定保存设置与翻页按钮。设置输入即时提交，正常关闭窗口自动保存；无效输入或写入失败会明确提示并保留窗口。记住上次页面、所选游戏版本与窗口大小。CurseForge Key 仍加密保存且不回显。
 
 0.4.0 更新：接入 MineOrbit 应用 ID、自动应用设置、账号按应用分开加密缓存、登录超时与阶段诊断、缺失启动配置修复、游戏进程状态与退出诊断、固定主页启动按钮；自动 Modrinth / CurseForge 渠道及同 Hash 文件回退；完善包装目录 / .minecraft / 隔离目录 / MultiMC ZIP 识别导入；更新蓝绿卡片界面。
+
+0.5.0 更新：整合包导出为完整标准目录、复制所需资源和运行库、官方启动器独立启动项、原配置备份、重复注册及路径迁移。101 项测试通过，并完成真实 Fabric 整合包的无网络文件完整性验证。

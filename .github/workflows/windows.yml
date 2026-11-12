@@ -14,5 +14,5 @@ jobs:
         with:
           name: MineOrbit-win-x64
           path: |
-            artifacts/MineOrbit-0.4.0-release.zip
+            artifacts/MineOrbit-0.5.0-release.zip
             artifacts/test-results/*.trx
